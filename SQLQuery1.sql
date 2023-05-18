@@ -11,7 +11,7 @@ SELECT FirstName
 SELECT FirstName	
 	FROM person.Person;
 
-	-- DISTINCT serve para não trazer dados duplicados do banco
+	-- DISTINCT serve para nÃ£o trazer dados duplicados do banco
 
 SELECT DISTINCT FirstName	
 	FROM person.Person;
@@ -20,7 +20,7 @@ SELECT *
 	FROM person.Person WHERE LastName = 'Miller';
 
 	/*
-	    OPERADOR   -   DESCRIÇÃO
+	    OPERADOR   -   DESCRIÃ‡ÃƒO
 	        =            IGUAL
 	        >            MAIOR
 	        <            MENOR
@@ -41,19 +41,19 @@ SELECT *
 		AND Size <> NULL;
 
 
--- DESAFIO 1 -> A equipe de produção de produtos precisa do nome de 
--- todas as peças que pesam mais de 500kg mas não mais que 700 kg para inspeção
+-- DESAFIO 1 -> A equipe de produÃ§Ã£o de produtos precisa do nome de 
+-- todas as peÃ§as que pesam mais de 500kg mas nÃ£o mais que 700 kg para inspeÃ§Ã£o
 SELECT * 
 	FROM Production.Product  
 		WHERE Weight >= 500 AND Weight <= 700;
 
--- DESAFIO 2 -> Foi pedido pelo marketing uma relação de todos os empregados que são casados
--- e são assalariados
+-- DESAFIO 2 -> Foi pedido pelo marketing uma relaÃ§Ã£o de todos os empregados que sÃ£o casados
+-- e sÃ£o assalariados
 SELECT * 
 	FROM HumanResources.Employee 
 		WHERE MaritalStatus = 'M' AND SalariedFlag = 1;
 
--- DESASFIO 3 -> Um usuário Peter Krebs está devendo um pagamento, consiga o email dele.
+-- DESASFIO 3 -> Um usuÃ¡rio Peter Krebs estÃ¡ devendo um pagamento, consiga o email dele.
 -- Usar Id para localizar na tabela.
 SELECT * 
 	FROM person.Person
@@ -127,9 +127,82 @@ SELECT *
 SELECT * 
 	FROM Production.Product 
 		WHERE ListPrice 
-			NOT BETWEEN 1000 AND 1500; -- NOT BETWEEN -> Não estão entre.
+			NOT BETWEEN 1000 AND 1500; -- NOT BETWEEN -> NÃ£o estÃ£o entre.
 
 SELECT *
 	FROM HumanResources.Employee
 		WHERE HireDate
 			BETWEEN '2009/01/01' AND '2010/01/01';
+
+-- IN (usamos o IN junto com o WHERE)
+-- para verificar se um valor correspondem com qualquer valor passado na lista
+-- de valores e EXECUTA MAIS RÃPIDO
+
+SELECT* 
+	FROM Production.Product
+		WHERE Color IN ('BLUE','RED');
+
+SELECT* 
+	FROM Production.Product
+		WHERE Color NOT IN ('BLUE','RED');
+
+-- LIKE (vamos dizer que vocÃª quer encontrar uma pessoa no banco de dados que vocÃªr sabe que o
+-- nome dela era ovi...... alguma coisa (COMEÃ‡A COM...)
+
+SELECT *
+	FROM Person.Person
+		WHERE FirstName
+			LIKE 'ovi%'; -- O % significa que nÃ£o importa o que vem depois, apenas o antes.
+
+SELECT *
+	FROM Person.Person
+		WHERE FirstName
+			LIKE '%to'; -- O % significa que nÃ£o importa o que vem antes, apenas o depois.
+
+
+SELECT *
+	FROM Person.Person
+		WHERE FirstName
+			LIKE '%essa%'; -- O % significa que nÃ£o importa o que vem antes ou depois, apenas o meio.
+
+-- DESAFIO 8 ->  Quantos produtos temos cadastrados no sistema que custam mais que 1500 dolares?
+
+SELECT COUNT(ListPrice) 
+	FROM Production.Product
+		WHERE ListPrice > '1500';
+
+SELECT COUNT(DISTINCT ListPrice) 
+	FROM Production.Product
+		WHERE ListPrice > '1500';
+
+-- DESAFIO 9 -> Quantas pessoas temos com o sobrenome que inicia com a letra P?
+
+SELECT COUNT(LastName)
+	FROM Person.Person	
+		WHERE LastName
+			LIKE '%p';
+
+-- DESAFIO 10 -> Em Quantas cidades Ãºnicas estÃ£o cadastrados nossos clientes?
+
+SELECT COUNT(DISTINCT City) 
+	FROM person.Address;
+
+-- DESAFIO 11 -> Quais sÃ£o as cidades Ãºnicas que temos cadastradas em nosso sistema?
+
+SELECT DISTINCT(City) 
+	FROM person.Address;
+
+-- DESAFIO 12 -> Quantos produtos tem preco entre 500 a 1000 dolares?
+
+SELECT *
+	FROM Production.Product
+		WHERE Color = 'red'AND
+			ListPrice BETWEEN 500 AND 1000;
+
+-- DEAFIO 13 -> Quantos produtos cadastros tem a palavra 'road' no nome deles?
+
+SELECT COUNT(*)
+	FROM Production.Product
+		WHERE Name 
+			LIKE '%road%'
+	
