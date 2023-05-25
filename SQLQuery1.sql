@@ -206,3 +206,60 @@ SELECT COUNT(*)
 		WHERE Name 
 			LIKE '%road%'
 	
+-- SUM -> Soma
+-- AS -> Colocar Apelido em alguma coluna
+
+SELECT TOP 10  sum(linetotal) AS SomaTotal
+	FROM Sales.SalesOrderDetail;
+
+-- MIN -> Menor Valor
+-- AS -> Colocar Apelido em alguma coluna
+
+SELECT TOP 10  MIN (linetotal) AS MenorValor
+	FROM Sales.SalesOrderDetail;
+
+-- MAX -> Maior Valor
+-- AS -> Colocar Apelido em alguma coluna
+
+SELECT TOP 10  MAX (linetotal) AS MaiorValor
+	FROM Sales.SalesOrderDetail;
+
+-- AVG (Avagere) -> Média
+-- AS -> Colocar Apelido em alguma coluna
+
+SELECT TOP 10  AVG (linetotal) AS MédiaValor
+	FROM Sales.SalesOrderDetail;
+
+-- GROUP BY -> Divide o resultado da pesquisa em grupos e agrupa os dados
+
+SELECT * 
+	FROM Sales.SalesOrderDetail;
+
+SELECT SpecialOfferID
+	, SUM (UnitPrice) AS Soma
+		FROM Sales.SalesOrderDetail
+			GROUP BY SpecialOfferID;
+
+SELECT ProductID
+, COUNT (ProductID) AS ContagemVendas
+	FROM Sales.SalesOrderDetail
+	GROUP BY ProductID;
+
+-- DESAFIO 14 -> Saber quantas pessoas tem o mesmo MiddleName
+
+SELECT *
+	FROM Person.Person;
+
+SELECT MiddleName
+	 , COUNT(MiddleName)
+	 FROM Person.Person
+	 GROUP BY MiddleName
+
+-- DESAFIO 15 -> Eu preciso saber em média qual é a quantidade de cada produto 
+-- vendido na loja.
+
+SELECT ProductID	
+	  , AVG (OrderQty) AS MediaQtdProduct
+	FROM Sales.SalesOrderDetail
+	GROUP BY ProductID;
+		
