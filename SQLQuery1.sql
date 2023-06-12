@@ -262,4 +262,48 @@ SELECT ProductID
 	  , AVG (OrderQty) AS MediaQtdProduct
 	FROM Sales.SalesOrderDetail
 	GROUP BY ProductID;
-		
+
+SELECT TOP 10 ProductId
+	, SUM (linetotal)
+		FROM sales.SalesOrderDetail
+			GROUP BY ProductID
+				ORDER BY SUM (LineTotal) DESC;
+
+-- HAVING -> Usado em junção com o group by para filtrar resultados de agrupamento
+
+SELECT Firstname
+		,COUNT (FirstName) as "CountName"
+				FROM Person.Person
+					GROUP BY FirstName
+						HAVING COUNT (FirstName) > 10;
+
+SELECT productId,	
+	SUM (linetotal) AS "TotalValor"
+		FROM Sales.SalesOrderDetail
+			GROUP BY ProductID
+				HAVING SUM (linetotal)	
+				BETWEEN 162000 AND 500000;
+
+SELECT * FROM
+	person.person;
+
+SELECT FirstName
+	, COUNT (FirstName) as "quantidade"		
+	FROM person.person
+	WHERE Title = 'Mr.'
+	GROUP BY FirstName
+	HAVING COUNT (FirstName) > 10;
+
+SELECT * FROM person.StateProvince;
+
+SELECT StateProvinceID
+	,  COUNT (StateProvinceID) as "CountState"
+	   FROM person.Address
+	   GROUP BY StateProvinceID
+	   HAVING COUNT (StateProvinceID) > 1000;
+
+SELECT productId,	
+	AVG (linetotal) AS "TotalValor"
+		FROM Sales.SalesOrderDetail
+			GROUP BY ProductID
+				HAVING AVG (linetotal) < 1000000;
