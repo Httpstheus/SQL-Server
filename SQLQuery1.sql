@@ -307,3 +307,55 @@ SELECT productId,
 		FROM Sales.SalesOrderDetail
 			GROUP BY ProductID
 				HAVING AVG (linetotal) < 1000000;
+
+	SELECT Firstname as Nome, LastName as sobrenome
+		FROM person.person;
+
+	SELECT ProductNumber as "Numero do Produto"
+		FROM Production.Product;
+
+	SELECT unitPrice as "Preco Unitario"
+		FROM sales.SalesOrderDetail;
+
+	-- INNER JOIN
+	SELECT TOP 10 * FROM PERSON.PERSON;
+
+	SELECT TOP 10 * FROM PERSON.EmailAddress;
+
+	Select p.BusinessEntityID, p.FirstName,p.LastName, pe.EmailAddress
+		FROM Person.Person as P
+		INNER JOIN Person.EmailAddress PE on p.BusinessEntityID = p.BusinessEntityID
+
+		-- Queremos os nomes e informações de suas subcategorias
+
+		SELECT TOP 10 *
+			FROM Production.Product;
+
+		SELECT TOP 10 * 
+			FROM Production.ProductSubcategory;
+
+		select PR.ListPrice, pr.Name, pc.Name
+		FROM Production.Product Pr
+		INNER JOIN Production.ProductSubcategory PC on PC.ProductSubcategoryID = pr.ProductSubcategoryID
+
+		-- JUNTAR DUAS TABELAS (TODAS AS INFORMAÇÕES)
+
+		SELECT TOP 10 *
+			FROM Person.BusinessEntityAddress;
+
+		SELECT TOP 10 *
+		FROM Person.Address;
+
+		SELECT TOP 10 *
+		FROM Person.BusinessEntityAddress
+		INNER JOIN Person.Address PA ON PA.AddressID = BusinessEntityAddress.AddressID
+
+		SELECT TOP 10 *
+			FROM Person.PhoneNumberType;
+
+		SELECT TOP 10 *
+			FROM Person.PersonPhone;
+
+		SELECT pp.BusinessEntityID, pn.Name, pn.PhoneNumberTypeID, pp.PhoneNumber
+			FROM person.PhoneNumberType PN
+			INNER JOIN  person.personPhone PP ON PP.PhoneNumberTypeID = PN.PhoneNumberTypeID
