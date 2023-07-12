@@ -359,3 +359,54 @@ SELECT productId,
 		SELECT pp.BusinessEntityID, pn.Name, pn.PhoneNumberTypeID, pp.PhoneNumber
 			FROM person.PhoneNumberType PN
 			INNER JOIN  person.personPhone PP ON PP.PhoneNumberTypeID = PN.PhoneNumberTypeID
+
+		-- INNER JOIN RETORNA APENAS OS RESULTADOS QUE CORRESPONDEM TANTO NA TABELA A E TABELA B
+
+		-- FULL OUTER JOIN -> RETORNA O CONJUNTO DE TODOS OS REGISTROS QUANDO FOREM IGUAIS, SE NÃO HOUVER VALORES CORRESPONDETES, ELE PREEENCHE COMO NULL
+		-- EXEMPLO:
+		--SELECT * FROM TabelaA
+		--FULL OUTER JOIN TabelaB
+		--ON TabelaA.nome = TabelaB.nome
+
+		-- LEFT OUTER JOIN EXCLUI LADO B DA TABELA (RETORNA O CONJUNTO DE TODOS OS REGISTROS DA TABELA A, EE ALEM DISSO OS REGISTROS CORRESPONDENTES (QUANDO DISPONÍVEIS) NA TABELA B
+		-- SE NÃO HOUVER REGISTROS CORRESPONDENTES ELE TRAZ COMO NULL
+
+		-- LEFT OUTER JOIN / LEFT JOIN
+
+		--Vamos descobrir quais pessoas possuem cartão de crédito registrado
+		SELECT *	
+			from person.Person
+			INNER JOIN Sales.PersonCreditCard
+			ON Person.BusinessEntityID = PersonCreditCard.BusinessEntityID;
+			-- INEER JOIN: 19.118
+
+		SELECT *	
+			from person.Person
+			LEFT JOIN Sales.PersonCreditCard
+			ON Person.BusinessEntityID = PersonCreditCard.BusinessEntityID;
+			-- LEFT JOIN: 19.972
+			
+		SELECT 19972 - 19118;
+
+		SELECT *	
+			from person.Person
+			LEFT JOIN Sales.PersonCreditCard
+			ON Person.BusinessEntityID = PersonCreditCard.BusinessEntityID
+			where PersonCreditCard.BusinessEntityID IS NULL;
+
+		-- UNION (COMBINAR DADOS), dois ou mais dados de um SELECT
+		-- a string tem que ser igual (na ordem das colunas
+		-- REMOVE AS DUPLICADAS (UNION ALL TRAZ TUDO)
+
+		SELECT [ProductID]
+			, [Name]
+			, [ProductNumber]
+		FROM Production.Product
+		WHERE Name like '%Chain%'
+			UNION
+		SELECT [ProductID]
+			, [Name]
+			, [ProductNumber]
+		FROM Production.Product 
+		WHERE Name like '%Decal%'
+			order by Name
